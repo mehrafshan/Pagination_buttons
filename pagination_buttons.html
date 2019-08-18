@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        font-family: sans-serif;
+        margin: 0;
+    }    
+    .grid-container{
+        width: 100%;
+        height: 50px;
+        background: transparent;
+        display: grid;
+        grid-template-columns:repeat(6 , 50px [col-start]) ;
+        grid-template-rows: auto;
+        grid-gap: 0;
+        justify-content: center;
+    }
+    .flex-container{
+        display: flex; 
+        width: 100%;
+        justify-content: center;
+    }.flex-container > button{ flex-wrap: nowrap; }
+    
+    .group-container{
+        width: 100%;
+        margin-left: 50%;
+        transform: translate(-150px, 0);
+        margin-right: auto;
+        margin-bottom: 10px;
+    }.group-container > button{float: left; margin: 0; }
+    .Table-container{
+        display: table;
+        margin: auto;
+    }
+    .Table-container > .pagin_btn{
+        display: table-column;
+    }
+    /*------------------------------------------------------------------------------*/
+    .pagin_btn{
+        width: 50px;
+        height: 50px;
+        border: 1px solid #ccc;
+        margin: 0;
+        background: #fff;
+        transition: .4s;
+        font-size: 20px;
+        font-weight: bolder;
+        color: #999;
+    }
+.pagin_btn:focus{outline:none;}
+.pagin_btn:hover{background: #555;color:#fff;}
+.pagin_btn:active{background-color: red;}
+.active{background: rgb(136, 22, 22); color: #fff;}
+hr{
+    outline: 0;
+    border:5px solid rgb(233, 233, 233);
+}
+    </style>
+
+</head>
+
+<body>
+        Collected by Mehran mehrafshan . Wishing to be helpfull .
+        <hr>
+        <h1>Exampe for Paginate buttons by group</h1>
+        <div class="group-container">
+            <button class="pagin_btn "><<</button>
+            <button class="pagin_btn ">1</button>
+            <button class="pagin_btn ">2</button>
+            <button class="pagin_btn ">3</button>
+            <button class="pagin_btn ">4</button>
+            <button class="pagin_btn " style="display: none">5</button>
+            <button class="pagin_btn " style="display: none">6</button>
+            <button class="pagin_btn " style="display: none">7</button>
+            <button class="pagin_btn " style="display: none">8</button>
+            <button class="pagin_btn " >>></button>
+        </div><br><br><br><hr>
+    <h1>Exampe for Paginate buttons by Grid</h1>
+    <div class="grid-container">
+        <button class="pagin_btn "><<</button>
+        <button class="pagin_btn ">1</button>
+        <button class="pagin_btn ">2</button>
+        <button class="pagin_btn ">3</button>
+        <button class="pagin_btn ">4</button>
+        <button class="pagin_btn ">>></button>
+        <button class="pagin_btn " style="display: none">5</button>
+        <button class="pagin_btn " style="display: none">6</button>
+        <button class="pagin_btn " style="display: none">7</button>
+        <button class="pagin_btn " style="display: none">8</button>
+    </div><br><hr>
+    <h1>Exampe for Paginate buttons by flex</h1>
+    <div class="flex-container">
+            <button class="pagin_btn "><<</button>
+            <button class="pagin_btn ">1</button>
+            <button class="pagin_btn ">2</button>
+            <button class="pagin_btn ">3</button>
+            <button class="pagin_btn ">4</button>
+            <button class="pagin_btn ">>></button>
+            <button class="pagin_btn " style="display: none">5</button>
+            <button class="pagin_btn " style="display: none">6</button>
+            <button class="pagin_btn " style="display: none">7</button>
+            <button class="pagin_btn " style="display: none">8</button>
+    </div><br><hr>
+    <h1>Exampe for Paginate buttons by Table display</h1>
+    <div class="Table-container">
+            <button class="pagin_btn "><<</button>
+            <button class="pagin_btn ">1</button>
+            <button class="pagin_btn ">2</button>
+            <button class="pagin_btn ">3</button>
+            <button class="pagin_btn ">4</button>
+            <button class="pagin_btn ">>></button>
+            <button class="pagin_btn " style="display: none">5</button>
+            <button class="pagin_btn " style="display: none">6</button>
+            <button class="pagin_btn " style="display: none">7</button>
+            <button class="pagin_btn " style="display: none">8</button>
+    </div><br><hr>
+
+
+</body>
+<script>
+    var btn ;
+btn = document.getElementsByClassName('pagin_btn');
+for(i=0 ; i < btn.length ; i++){
+    btn[i].setAttribute("onclick", "active(this);");
+    
+}
+/*---------------------------------------------------------------*/
+function FindByAttributeValue(attribute, value, element_type){
+var array = [];
+  element_type = element_type || "*";
+  var All = document.getElementsByTagName(element_type);
+  for (var i = 0; i < All.length/4; i++)       {
+    if (All[i].getAttribute(attribute) == value) { array.push(All[i]) ; }
+  }
+  return(array);
+}
+/*--------------------------------------------------------------*/
+   function active(x){
+        for(i=0 ; i < btn.length ; i++){
+                btn[i].classList.remove("active");
+                
+        }
+        x.classList.add("active");
+        var cursor = '';
+        if(x.innerHTML === '&gt;&gt;'){cursor = 'forward'}
+        if(x.innerHTML === '&lt;&lt;'){cursor = 'backward'}
+        if(cursor){Scrolling(cursor);}
+}
+/*--------------------------------------------------------------*/
+var btn_number;
+function Scrolling(c){
+        var array_of_visualed ;
+        array_of_visualed = FindByAttributeValue("style","display: none" , "button");
+
+        if((c==='forward')&&(array_of_visualed.length !==0 )){
+            array_of_visualed[0].setAttribute('style','display:""');
+            btn_number = parseInt(array_of_visualed[0].innerHTML);
+            btn[btn_number-4].setAttribute('style','display:none');
+        }else{
+            console.log(array_of_visualed);
+        }
+        
+        
+        
+}
+</script>
+</html>
